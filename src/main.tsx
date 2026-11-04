@@ -6,5 +6,6 @@ import './styles/global.css';
 import './styles/tokens.css';
 import './styles/tech.css';
 import './styles/journey.css';
+import './styles/refinement.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><App /></React.StrictMode>);

@@ -1,5 +1,17 @@
 # Verificacao
 
+## Versao 0.5 - espaco, revelacao e duvidas
+
+- Build TypeScript/Vite e 23 testes aprovados. Testes cobrem todas as etapas relevantes, perguntas unicas, referencias validas, selecao deterministica e impossibilidade de responder com pergunta de outra etapa.
+- PDF longo continua passando o teste de mais de dez paginas. Posicoes PDF preservadas: segunda coluna x=62mm e segunda linha y=103mm; web usa passos de 590x600px.
+- Navegador renderizado: percurso direto de seis visitas, serpentina com posicoes (0,0), (590,0), (1180,0), (1180,600), (590,600), (0,600).
+- Revelacao observada logo apos avanco: opacity 0, blur 10px, translateY 16px e escala .97; escolhas temporariamente desabilitadas. Duplo clique programatico gerou somente uma nova visita.
+- Voltar mostrou uma copia de saida inerte, removeu-a ao finalizar e recuperou as alternativas Sim/Nao. Visao geral preservou 42 nos e nao alterou o contador do percurso.
+- Pergunta selecionada gerou uma mensagem e sua resposta exata. Mudanca para Ler solicitacao mostrou tres sugestoes distintas e conversa vazia, sem misturar a etapa anterior. Acao Explicar com IA ausente.
+- Viewports 1920x1080, 1536x864 e 390x844 inspecionados. Em notebook, painel de 380px permaneceu separado do card ativo. Sem overflow horizontal do documento. Reduced-motion verificado com filter none e transform none no conteudo.
+- Geracao web validada com Blob application/pdf de 16789 bytes para o percurso direto e nome padronizado. O clique do link foi interceptado para verificar o contrato; nao se afirma salvamento final em disco pelo navegador integrado.
+- Avisos de React Flow durante hot reload de componentes desapareceram como falhas funcionais apos recarga. Build final e diagnosticos do editor sao a referencia para erros de codigo.
+
 ## Versao 0.3 - Tech Minimal e assistencia
 
 - TypeScript e build aprovados; 15 testes automatizados de dominio, exploracao e contexto.

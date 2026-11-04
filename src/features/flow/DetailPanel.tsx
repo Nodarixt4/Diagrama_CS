@@ -6,7 +6,7 @@ import { stepDocumentation } from '../../data/flows/atendimento-topdesk/document
 
 export function DetailPanel({ step, onClose }: { step: FlowStep; onClose: () => void }) {
   const documentation = stepDocumentation[step.id];
-  return <motion.aside className="detail-float floating-surface" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} aria-label="Detalhes da etapa">
+  return <motion.aside className={`detail-float floating-surface step-themed theme-${step.type}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} aria-label="Detalhes da etapa">
     <div className="float-heading"><span>{typeLabels[step.type]}</span><button autoFocus className="icon-button" onClick={onClose} aria-label="Fechar detalhes"><X size={17} /></button></div>
     <h2>{step.title}</h2>
     <p className="documentation-disclaimer">Explicação didática do diagrama · não é uma regra oficial.</p>

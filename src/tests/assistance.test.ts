@@ -1,7 +1,8 @@
 import { expect, it } from 'vitest';
 import { flow } from '../data/flows/atendimento-topdesk';
 import { createExploration, follow, inspect, retreat } from '../features/flow/exploration';
-import { buildExplanationRequest, explanationService } from '../features/assistance/service';
+import { answerForStep, faqSources, questionsForStep, relevantFAQSteps, stepFAQs } from '../data/flows/atendimento-topdesk/faq';
+import { journeyPosition, pdfJourneyLayout, webJourneyLayout } from '../features/flow/journeyLayout';
 
 it('volta da decisão escolhida e segue alternativa sem manter o caminho desfeito', () => {
   let state = follow(flow, createExploration(flow), '225');
@@ -13,13 +14,34 @@ it('volta da decisão escolhida e segue alternativa sem manter o caminho desfeit
   expect(state.discovered).toContain('227');
   expect(retreat(retreat(state)).journey.edges).toEqual([]);
 });
-it('monta contexto real sem confundir inspeção com visita e sem inventar documentos', () => {
-  const state = inspect(follow(flow, createExploration(flow), '225'), '303');
-  const context = buildExplanationRequest(flow, state, '  Qual caminho? ');
-  expect(context.step.id).toBe('303');
-  expect(context.connections.filter(e => e.source === '303').map(e => e.condition)).toEqual(['Sim', 'Não · investigar', 'Não · escalonar']);
-  expect(context.journey).toEqual({ visits: ['221', '224'], transitions: ['225'], current: '224', inspecting: true });
-  expect(context.documentation).toEqual([]);
-  expect(context.question).toBe('Qual caminho?');
-  expect(explanationService.available).toBe(false);
+it('cobre cada etapa relevante com perguntas editoriais únicas e fontes existentes', () => {
+  expect(new Set(stepFAQs.map(faq => faq.id)).size).toBe(stepFAQs.length);
+  expect(new Set(stepFAQs.map(faq => faq.question)).size).toBe(stepFAQs.length);
+  for (const step of relevantFAQSteps) {
+    const questions = questionsForStep(step.id);
+    expect(questions.length).toBeGreaterThanOrEqual(3);
+    expect(questions.length).toBeLessThanOrEqual(5);
+    for (const faq of questions) {
+      expect(faq.answer.length).toBeGreaterThan(60);
+      expect(faq.sourceRefs.every(ref => ref in faqSources)).toBe(true);
+      expect(faq.answer).toMatch(/No fluxo:|Boa prática:|Informação não definida:/);
+    }
+  }
+  expect(questionsForStep('221')).toEqual([]);
+  expect(questionsForStep('312')).toEqual([]);
+});
+it('seleciona respostas determinísticas e rejeita perguntas de outra etapa', () => {
+  const faq = questionsForStep('287')[0];
+  expect(answerForStep('287', faq.id)).toBe(faq);
+  expect(answerForStep('320', faq.id)).toBeUndefined();
+  expect(answerForStep('287', 'texto livre')).toBeUndefined();
+  expect(questionsForStep('309').some(faq => faq.answer.includes('não apresenta uma saída negativa'))).toBe(true);
+});
+it('mantém o PDF compacto e independente do espaço negativo web', () => {
+  expect(webJourneyLayout.gapX).toBe(420);
+  expect(webJourneyLayout.gapY).toBe(360);
+  expect(journeyPosition(1, 3, pdfJourneyLayout).x).toBe(62);
+  expect(journeyPosition(3, 3, pdfJourneyLayout)).toEqual({ x: 124, y: 103, row: 1, column: 2 });
+  expect(journeyPosition(1).x).toBe(800);
+  expect(journeyPosition(3).y).toBe(780);
 });

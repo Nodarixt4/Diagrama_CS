@@ -2,7 +2,7 @@
 
 O grafo operacional permanece em `src/data/flows/atendimento-topdesk/index.ts`. O canvas principal nao utiliza suas coordenadas: `journeyLayout.ts` cria ocorrencias por indice e ID do no. Visitas repetidas sao cards distintos, ligados apenas a ocorrencia seguinte. O modelo de jornada continua armazenando IDs de nos e transicoes, sem duplicar regras operacionais.
 
-Layout: cards 380 x 420, intervalos 88 x 110; tres colunas a partir de 1400px, duas a partir de 900px e uma abaixo disso. Linhas alternam sentido. A camera conserva escala de leitura e centraliza a linha atual; a visao geral usa o mapa operacional original. Mudar a largura reorganiza o percurso, sem mudar suas decisoes.
+Layout web: `webJourneyLayout` define cards 380 x 420 e espaco livre de 420 x 360px; tres colunas a partir de 1400px, duas a partir de 900px e uma abaixo disso. Linhas alternam sentido. A camera conserva escala de leitura e acompanha o card atual, reservando espaco para o painel de duvidas em notebooks. `pdfJourneyLayout` usa milimetros: cards 55 x 75, gaps 7 x 28, preservando seis cards por pagina A4. Apenas a funcao matematica de serpentina e compartilhada. Mudar a largura reorganiza o percurso, sem mudar suas decisoes. Decisoes web usam contorno em losango e paleta amarela sem rotacionar texto ou alterar os handles do canvas.
 
 Voltar remove uma visita e sua transicao, preserva descobertas e reabre as alternativas anteriores. Retomar daqui corta o sufixo do percurso. Inspecao pelo historico usa o indice exato, inclusive quando o mesmo no foi visitado varias vezes.
 

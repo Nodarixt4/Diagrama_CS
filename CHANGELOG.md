@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.0 - 2026-11-04
+
+- Separacao explicita entre webJourneyLayout (gaps 210x180px) e pdfJourneyLayout (7x28mm), sem mudar a densidade A4.
+- Revelacao coordenada de camera, conexao e card com fade, blur e deslocamento internos; retorno com copia visual inerte e suporte a reduced-motion.
+- Protecao sincrona contra avancos duplicados e recalculo dos handles nas mudancas de direcao.
+- Substituicao completa do painel generativo por Tirar duvidas: perguntas editoriais para as 39 etapas relevantes, respostas deterministicas e fontes identificadas.
+- Documentacao de fontes secundarias de ITSM e limites operacionais, sem inventar regras Aptum ou ramos ausentes.
+
 ## 0.4.0 - 2026-11-04
 
 - Percurso dinamico em serpentina com ocorrencias independentes, ciclos e conectores cronologicos.

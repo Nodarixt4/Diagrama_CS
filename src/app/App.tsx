@@ -5,7 +5,8 @@ import { ArrowLeft, ArrowRight, Compass, Search, X } from 'lucide-react';
 import { flow, issues, references } from '../data/flows/atendimento-topdesk';
 import { FlowCanvas } from '../features/flow/FlowCanvas';
 import { DetailPanel } from '../features/flow/DetailPanel';
-import { AssistancePanel } from '../features/assistance/AssistancePanel';
+import { DoubtsPanel } from '../features/assistance/DoubtsPanel';
+import { useJourneyTransition } from '../features/flow/useJourneyTransition';
 import { ExportPanel } from '../features/export/ExportPanel';
 import { createExploration, follow, inspect, resumeAtVisit, retreat } from '../features/flow/exploration';
 import { searchSteps } from '../features/flow/graph';
@@ -24,6 +25,7 @@ export function App() {
   const [query, setQuery] = useState('');
   const [tools, setTools] = useState(false);
   const [cameraToken, setCameraToken] = useState(0);
+  const { transition, begin, cancel } = useJourneyTransition();
   const exploreRef = useRef<HTMLButtonElement>(null);
   const current = state.journey.nodes.at(-1)!;
   const focusedStep = flow.nodes.find(n => n.id === state.focused)!;
@@ -37,10 +39,15 @@ export function App() {
     setState(s => ({ ...s, focused: s.journey.nodes[index], focusedVisit: index }));
     setDetails(false); setAssistance(false);
   };
-  const move = (id: string) => { setState(s => follow(flow, s, id)); setDetails(false); setAssistance(false); };
-  const reset = () => { setState(createExploration(flow)); setJourneyId(crypto.randomUUID()); setExporting(false); setOverview(false); setSurface(null); setDetails(false); setAssistance(false); setCameraToken(t => t + 1); };
+  const move = (id: string) => {
+    if (!begin('advance', state.journey)) return;
+    setState(s => follow(flow, s, id)); setDetails(false); setAssistance(false);
+  };
+  const reset = () => { cancel(); setState(createExploration(flow)); setJourneyId(crypto.randomUUID()); setExporting(false); setOverview(false); setSurface(null); setDetails(false); setAssistance(false); setCameraToken(t => t + 1); };
   const close = () => { setSurface(null); setDetails(false); exploreRef.current?.focus(); };
   const goBack = () => {
+    cancel();
+    begin('retreat', state.journey);
     setState(s => retreat(s));
     setOverview(false); setSurface(null); setDetails(false); setAssistance(false);
     setExporting(false);
@@ -65,14 +72,14 @@ export function App() {
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [surface, state.journey.edges.length]);
-  return <MotionConfig reducedMotion="user"><main className={`experience ${overview ? 'overview-mode' : ''}`}>
+  return <MotionConfig reducedMotion="user"><main className={`experience ${overview ? 'overview-mode' : ''} ${assistance ? 'doubts-open' : ''}`}>
     <div className="ambient-light" aria-hidden="true" />
     <header className="identity"><a href="./" aria-label="APTUM FLOW">aptum<span>/</span><strong>flow</strong><i /></a></header>
     <button ref={exploreRef} className={`explore-trigger ${surface ? 'is-open' : ''}`} onClick={() => { setSurface(surface ? null : 'menu'); setDetails(false); }} aria-expanded={Boolean(surface)} aria-controls="explore-surface"><Compass size={16} />Explorar</button>
-    <div className="spatial-canvas"><ReactFlowProvider><FlowCanvas state={state} overview={overview} view={view} tools={tools} cameraToken={cameraToken} onInspect={selectCanvas} onFollow={move} onDetails={() => { setDetails(true); setSurface(null); setAssistance(false); }} onExplain={() => { setAssistance(true); setDetails(false); setSurface(null); }} /></ReactFlowProvider></div>
+    <div className="spatial-canvas"><ReactFlowProvider><FlowCanvas transition={transition} helpOpen={assistance} state={state} overview={overview} view={view} tools={tools} cameraToken={cameraToken} onInspect={selectCanvas} onFollow={move} onDetails={() => { setDetails(true); setSurface(null); setAssistance(false); }} onExplain={() => { setAssistance(true); setDetails(false); setSurface(null); }} /></ReactFlowProvider></div>
     {overview && <div className="overview-caption"><span>O PROCESSO INTEIRO</span><h2>Uma arquitetura de decisões.</h2><p>Selecione uma etapa para aproximar. Seu percurso permanece onde você o deixou.</p><div className="overview-tabs">{([['complete', 'Completo'], ['service', 'Atendimento'], ['registration', 'Registro']] as const).map(([id, title]) => <button key={id} aria-pressed={view === id} onClick={() => setView(id)}>{title}</button>)}</div></div>}
     <AnimatePresence>{details && <DetailPanel key={focusedStep.id} step={focusedStep} onClose={() => setDetails(false)} />}</AnimatePresence>
-    <AnimatePresence>{assistance && <AssistancePanel key={`${focusedStep.id}-${state.journey.edges.join('-')}`} model={flow} state={state} onClose={() => setAssistance(false)} />}</AnimatePresence>
+    <AnimatePresence mode="wait">{assistance && <DoubtsPanel key={focusedStep.id} step={focusedStep} onClose={() => setAssistance(false)} />}</AnimatePresence>
     {complete && !overview && !inspecting && !exporting && <div className="completion-actions"><button onClick={() => { setExporting(true); setDetails(false); setAssistance(false); }}>Exportar PDF</button><button onClick={() => setSurface('history')}>Revisar percurso</button><button onClick={reset}>Iniciar novamente</button></div>}
     {exporting && complete && <ExportPanel model={flow} journey={state.journey} id={journeyId} onClose={() => setExporting(false)} />}
     <AnimatePresence>{surface && <motion.section key={surface} id="explore-surface" className="explore-float floating-surface" role="dialog" aria-label={surface === 'search' ? 'Buscar no processo' : surface === 'history' ? 'Caminho percorrido' : surface === 'help' ? 'Sobre o processo' : 'Opções de exploração'} initial={{ opacity: 0, y: -7 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }}>

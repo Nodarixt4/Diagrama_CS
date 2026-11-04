@@ -1,6 +1,6 @@
 # APTUM FLOW
 
-Atualizacao 0.3: identidade Tech Minimal, retorno logico com Alt+SetaEsquerda e assistencia contextual sob demanda. A IA esta indisponivel ate existir um backend autorizado; consulte `docs/CONTEXTUAL_AI.md`. Tokens visuais estao em `src/styles/tokens.css`, componentes em `src/styles/tech.css`. As fontes atuais sao IBM Plex Sans e JetBrains Mono (Google Fonts, fallback local).
+Atualizacao 0.5: percurso web com espaco negativo ampliado e revelacao coordenada de camera, conexao e card. Tirar duvidas usa perguntas e respostas locais, sem IA generativa ou API. Consulte `docs/CONTEXTUAL_AI.md` e `docs/JOURNEY_REPORT.md`. O PDF permanece compacto e independente do layout web. As fontes atuais sao IBM Plex Sans e JetBrains Mono (Google Fonts, fallback local).
 
 Plataforma local de aprendizagem do atendimento TOPdesk da Central de Servicos Aptum. React 19, TypeScript estrito, Vite, React Flow, Motion e Lucide. Sem backend, autenticacao ou integracao com sistemas internos.
 

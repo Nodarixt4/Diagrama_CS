@@ -2,7 +2,7 @@ import { jsPDF } from 'jspdf';
 import type { FlowModel } from '../flow/types';
 import type { Journey } from '../flow/graph';
 import { journeyReport } from './journeyReport';
-import { journeyPosition, journeyMetrics } from '../flow/journeyLayout';
+import { journeyPosition, pdfJourneyLayout } from '../flow/journeyLayout';
 
 export interface ReportIdentity { collaborator: string; exercise: string; notes: string }
 export function createJourneyPdf(model: FlowModel, journey: Journey, identity: ReportIdentity, id: string, date = new Date()) {
@@ -35,9 +35,9 @@ export function createJourneyPdf(model: FlowModel, journey: Journey, identity: R
     pdf.setFontSize(9); pdf.text(`Etapas ${start + 1} a ${Math.min(start + 6, report.entries.length)} · ${id}`, 17, 28);
     const pageEntries = report.entries.slice(start, start + 6);
     pageEntries.forEach((entry, local) => {
-      const p = journeyPosition(local, 3);
-      const x = 15 + p.x / (journeyMetrics.width + journeyMetrics.gapX) * 62;
-      const top = 48 + p.row * 103;
+      const p = journeyPosition(local, 3, pdfJourneyLayout);
+      const x = 15 + p.x;
+      const top = 48 + p.y;
       pdf.setDrawColor(84, 161, 163); pdf.setFillColor(245, 250, 250); pdf.roundedRect(x, top, 55, 75, 3, 3, 'FD');
       pdf.setFontSize(10); pdf.setTextColor(25, 113, 117); pdf.text(String(entry.index + 1).padStart(2, '0'), x + 4, top + 9);
       pdf.setTextColor(24, 43, 52); pdf.setFontSize(10);
@@ -46,7 +46,7 @@ export function createJourneyPdf(model: FlowModel, journey: Journey, identity: R
       pdf.text(pdf.splitTextToSize(entry.transition?.label ? `Escolha: ${entry.transition.label}` : entry.step.type === 'end' ? 'Fim do percurso' : entry.index === 0 ? 'Início' : 'Continuidade', 46), x + 4, top + 56);
       if (entry.transition?.inferred) { pdf.setFontSize(8); pdf.text('Conexão interpretada', x + 4, top + 70); }
       if (local < pageEntries.length - 1) {
-        const next = journeyPosition(local + 1, 3), down = next.row !== p.row;
+        const next = journeyPosition(local + 1, 3, pdfJourneyLayout), down = next.row !== p.row;
         const sx = down ? x + 27.5 : next.column > p.column ? x + 55 : x;
         const sy = down ? top + 75 : top + 36;
         const ex = down ? sx : sx + (next.column > p.column ? 7 : -7);

@@ -1,5 +1,7 @@
 # Experiencia espacial - versao 0.2
 
+Nota de versao: as descricoes abaixo preservam o historico da versao 0.2. Desde 0.4 o percurso renderiza somente ocorrencias ativas em serpentina, sem nos futuros montados. Desde 0.5 ha blur temporario no conteudo interno e camera por card. As especificacoes atuais estao em JOURNEY_REPORT.md e TRANSITIONS.md; o layout estatico continua exclusivo da visao geral.
+
 ## Apresentacao
 
 A abertura mostra somente a entrada, a identidade Aptum e Explorar. O canvas ocupa a janela. Sidebar, cabecalho operacional, legenda, minimapa e painel permanentes foram removidos. As alternativas existem como botoes na etapa atual, derivados de `outgoing(flow, id)`. O fluxo operacional e seus IDs nao foram alterados nesta reformulacao.
