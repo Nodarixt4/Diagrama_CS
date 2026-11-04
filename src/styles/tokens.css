@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --font-ui: 'IBM Plex Sans', sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-md: 14px;
+  --text-title: 32px;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --radius-sm: 9px;
+  --radius-control: 12px;
+  --radius-node: 18px;
+  --radius-panel: 22px;
+  --background: #0b0e12;
+  --surface: #151b22;
+  --surface-hover: #1e2932;
+  --text: #e6edf2;
+  --muted: #94a5b3;
+  --line: #2c3945;
+  --accent: #64d4d0;
+  --cyan: #64d4d0;
+  --green: #83d5a6;
+  --yellow: #dad68d;
+  --stroke: 1.5px;
+  --shadow-panel: 0 16px 48px #00000030;
+  --opacity-context: .24;
+  --opacity-inactive-path: .12;
+  --blur-surface: 6px;
+  --duration-fast: 160ms;
+  --duration-focus: 580ms;
+  --ease-ui: cubic-bezier(.22, .61, .36, 1);
+}

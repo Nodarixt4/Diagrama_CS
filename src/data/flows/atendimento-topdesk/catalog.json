@@ -1,0 +1,701 @@
+{
+  "file": "TOPdesk _ fluxo de atendimento a chamados .drawio.png",
+  "sha256": "e43983e2035852a91cbcdbb587794cd9d3d9f9e6541eaf0caf5129ebb4ce09bd",
+  "cells": [
+    {
+      "shortId": "224",
+      "label": "Criaremos o chamado?",
+      "edge": false
+    },
+    {
+      "shortId": "227",
+      "label": "Levantar as necessidades do solicitante",
+      "edge": false
+    },
+    {
+      "shortId": "229",
+      "label": "Ler solicitação descrita no chamado",
+      "edge": false
+    },
+    {
+      "shortId": "230",
+      "label": "Não",
+      "edge": false
+    },
+    {
+      "shortId": "231",
+      "label": "Sim",
+      "edge": false
+    },
+    {
+      "shortId": "234",
+      "label": "Complex. sufici. p/ chamado?",
+      "edge": false
+    },
+    {
+      "shortId": "236",
+      "label": "Aplicar solução",
+      "edge": false
+    },
+    {
+      "shortId": "238",
+      "label": "Não",
+      "edge": false
+    },
+    {
+      "shortId": "239",
+      "label": "Sim",
+      "edge": false
+    },
+    {
+      "shortId": "242",
+      "label": "Complex. suficiente para N2?",
+      "edge": false
+    },
+    {
+      "shortId": "243",
+      "label": "Não",
+      "edge": false
+    },
+    {
+      "shortId": "245",
+      "label": "Novo chamado N2",
+      "edge": false
+    },
+    {
+      "shortId": "247",
+      "label": "Novo chamado N1",
+      "edge": false
+    },
+    {
+      "shortId": "248",
+      "label": "Sim",
+      "edge": false
+    },
+    {
+      "shortId": "250",
+      "label": "Realizar preenchimento de chamado",
+      "edge": false
+    },
+    {
+      "shortId": "253",
+      "label": "Nome/Cliente",
+      "edge": false
+    },
+    {
+      "shortId": "254",
+      "label": "Solicitante",
+      "edge": false
+    },
+    {
+      "shortId": "257",
+      "label": "Breve descrição",
+      "edge": false
+    },
+    {
+      "shortId": "258",
+      "label": "Detalhes",
+      "edge": false
+    },
+    {
+      "shortId": "259",
+      "label": "Tipo de chamado",
+      "edge": false
+    },
+    {
+      "shortId": "260",
+      "label": "Categoria",
+      "edge": false
+    },
+    {
+      "shortId": "261",
+      "label": "Subcategoria",
+      "edge": false
+    },
+    {
+      "shortId": "265",
+      "label": "Impacto",
+      "edge": false
+    },
+    {
+      "shortId": "266",
+      "label": "Planejamento",
+      "edge": false
+    },
+    {
+      "shortId": "267",
+      "label": "Urgência",
+      "edge": false
+    },
+    {
+      "shortId": "269",
+      "label": "Prioridade",
+      "edge": false
+    },
+    {
+      "shortId": "272",
+      "label": "Grupo de operadores",
+      "edge": false
+    },
+    {
+      "shortId": "274",
+      "label": "Operador",
+      "edge": false
+    },
+    {
+      "shortId": "276",
+      "label": "Status",
+      "edge": false
+    },
+    {
+      "shortId": "279",
+      "label": "Preencher campo de texto do chamado",
+      "edge": false
+    },
+    {
+      "shortId": "281",
+      "label": "Salvar",
+      "edge": false
+    },
+    {
+      "shortId": "285",
+      "label": "Informações o suficiente?",
+      "edge": false
+    },
+    {
+      "shortId": "287",
+      "label": "Consultar base de conhecimento",
+      "edge": false
+    },
+    {
+      "shortId": "290",
+      "label": "Solução encontrada?",
+      "edge": false
+    },
+    {
+      "shortId": "292",
+      "label": "Solicitar mais informações ao cliente/solicitante",
+      "edge": false
+    },
+    {
+      "shortId": "293",
+      "label": "Não",
+      "edge": false
+    },
+    {
+      "shortId": "294",
+      "label": "Sim",
+      "edge": false
+    },
+    {
+      "shortId": "296",
+      "label": "Investigar soluções em bases de conhecimento externas (internet, terceiros, etc)",
+      "edge": false
+    },
+    {
+      "shortId": "297",
+      "label": "Sim",
+      "edge": false
+    },
+    {
+      "shortId": "299",
+      "label": "Aplicar solução",
+      "edge": false
+    },
+    {
+      "shortId": "303",
+      "label": "Resolveu?",
+      "edge": false
+    },
+    {
+      "shortId": "304",
+      "label": "Não",
+      "edge": false
+    },
+    {
+      "shortId": "306",
+      "label": "Documentar no chamado",
+      "edge": false
+    },
+    {
+      "shortId": "307",
+      "label": "Sim",
+      "edge": false
+    },
+    {
+      "shortId": "309",
+      "label": "Validar com cliente/solicitante",
+      "edge": false
+    },
+    {
+      "shortId": "311",
+      "label": "Mudar status de chamado para \"Resolvido\"",
+      "edge": false
+    },
+    {
+      "shortId": "315",
+      "label": "Encontrou solução?",
+      "edge": false
+    },
+    {
+      "shortId": "317",
+      "label": "Aplicar solução",
+      "edge": false
+    },
+    {
+      "shortId": "318",
+      "label": "Sim",
+      "edge": false
+    },
+    {
+      "shortId": "320",
+      "label": "Escalonar para N2",
+      "edge": false
+    },
+    {
+      "shortId": "322",
+      "label": "Mudar grupo de Operadores",
+      "edge": false
+    },
+    {
+      "shortId": "325",
+      "label": "Mudar Operador",
+      "edge": false
+    },
+    {
+      "shortId": "327",
+      "label": "Avisar Operador designado",
+      "edge": false
+    },
+    {
+      "shortId": "329",
+      "label": "Acompanhar andamento do chamado",
+      "edge": false
+    },
+    {
+      "shortId": "330",
+      "label": "Nesta fase o foco é agir como suporte, vigie a SLA, cobre o Operador, faça meio de campo com o solicitante, etc.",
+      "edge": false
+    },
+    {
+      "shortId": "333",
+      "label": "Chamado resolvido?",
+      "edge": false
+    },
+    {
+      "shortId": "334",
+      "label": "Sim",
+      "edge": false
+    },
+    {
+      "shortId": "335",
+      "label": "Não",
+      "edge": false
+    },
+    {
+      "shortId": "336",
+      "label": "Não",
+      "edge": false
+    },
+    {
+      "shortId": "338",
+      "label": "Não",
+      "edge": false
+    },
+    {
+      "shortId": "341",
+      "label": "Mudar status para \"aguardando atendimento\"",
+      "edge": false
+    },
+    {
+      "shortId": "342",
+      "label": "Central de Serviços",
+      "edge": false
+    },
+    {
+      "shortId": "343",
+      "label": "TI - Data Center",
+      "edge": false
+    },
+    {
+      "shortId": "344",
+      "label": "TI - Microsserviços",
+      "edge": false
+    },
+    {
+      "shortId": "345",
+      "label": "TI - Observabilidade",
+      "edge": false
+    },
+    {
+      "shortId": "346",
+      "label": "TI - Segurança",
+      "edge": false
+    },
+    {
+      "shortId": "347",
+      "label": "Compliance",
+      "edge": false
+    },
+    {
+      "shortId": "348",
+      "label": "Financeiro",
+      "edge": false
+    },
+    {
+      "shortId": "349",
+      "label": "Pré Vendas",
+      "edge": false
+    },
+    {
+      "shortId": "350",
+      "label": "Escritório de Projetos",
+      "edge": false
+    },
+    {
+      "shortId": "351",
+      "label": "RH",
+      "edge": false
+    },
+    {
+      "shortId": "352",
+      "label": "Suprimentos",
+      "edge": false
+    },
+    {
+      "shortId": "353",
+      "label": "Inovação Tecnológica",
+      "edge": false
+    },
+    {
+      "shortId": "354",
+      "label": "Licitação",
+      "edge": false
+    },
+    {
+      "shortId": "356",
+      "label": "Pessoa",
+      "edge": false
+    },
+    {
+      "shortId": "357",
+      "label": "Departamento",
+      "edge": false
+    },
+    {
+      "shortId": "358",
+      "label": "Empresa",
+      "edge": false
+    },
+    {
+      "shortId": "359",
+      "label": "Disponível",
+      "edge": false
+    },
+    {
+      "shortId": "360",
+      "label": "Parcialmente disponível",
+      "edge": false
+    },
+    {
+      "shortId": "361",
+      "label": "Não disponível",
+      "edge": false
+    },
+    {
+      "shortId": "364",
+      "label": "1. Registrado (sem classificação)",
+      "edge": false
+    },
+    {
+      "shortId": "365",
+      "label": "2. Em atendimento",
+      "edge": false
+    },
+    {
+      "shortId": "366",
+      "label": "3. Aguardando solicitante",
+      "edge": false
+    },
+    {
+      "shortId": "367",
+      "label": "4. Alterado pelo solicitante",
+      "edge": false
+    },
+    {
+      "shortId": "368",
+      "label": "5. Resolvido",
+      "edge": false
+    },
+    {
+      "shortId": "369",
+      "label": "6. Encerrado (closed)",
+      "edge": false
+    },
+    {
+      "shortId": "372",
+      "label": "Alertas de ferramentas",
+      "edge": false
+    },
+    {
+      "shortId": "373",
+      "label": "Armazenamento",
+      "edge": false
+    },
+    {
+      "shortId": "374",
+      "label": "Componente",
+      "edge": false
+    },
+    {
+      "shortId": "375",
+      "label": "Desktop / Hardware / Impressora",
+      "edge": false
+    },
+    {
+      "shortId": "376",
+      "label": "Internet / Rede",
+      "edge": false
+    },
+    {
+      "shortId": "377",
+      "label": "Lentidão / Acesso ao Servidor",
+      "edge": false
+    },
+    {
+      "shortId": "378",
+      "label": "Maquina Virtual / Mensageria",
+      "edge": false
+    },
+    {
+      "shortId": "379",
+      "label": "Novo / Desativar Usuário",
+      "edge": false
+    },
+    {
+      "shortId": "380",
+      "label": "Pacote Office / SharePoint",
+      "edge": false
+    },
+    {
+      "shortId": "381",
+      "label": "Micro Serviço",
+      "edge": false
+    },
+    {
+      "shortId": "382",
+      "label": "Atualização de Firmware",
+      "edge": false
+    },
+    {
+      "shortId": "383",
+      "label": "Configuração LDAP",
+      "edge": false
+    },
+    {
+      "shortId": "384",
+      "label": "Controle de Aplicativos",
+      "edge": false
+    },
+    {
+      "shortId": "385",
+      "label": "Criar Política VPN IPSEC/SSL",
+      "edge": false
+    },
+    {
+      "shortId": "386",
+      "label": "Criar/Desativar Regra",
+      "edge": false
+    },
+    {
+      "shortId": "387",
+      "label": "Falhas e Lentidão",
+      "edge": false
+    },
+    {
+      "shortId": "388",
+      "label": "Liberar/Bloquear Sites",
+      "edge": false
+    },
+    {
+      "shortId": "389",
+      "label": "Regra de NAT de Destino",
+      "edge": false
+    },
+    {
+      "shortId": "390",
+      "label": "Suspeita de Phishing",
+      "edge": false
+    },
+    {
+      "shortId": "391",
+      "label": "Firewall",
+      "edge": false
+    },
+    {
+      "shortId": "392",
+      "label": "Data Center Network",
+      "edge": false
+    },
+    {
+      "shortId": "393",
+      "label": "Monitoramento",
+      "edge": false
+    },
+    {
+      "shortId": "394",
+      "label": "SAN Network",
+      "edge": false
+    },
+    {
+      "shortId": "395",
+      "label": "Sensores",
+      "edge": false
+    },
+    {
+      "shortId": "396",
+      "label": "Servidor Blade",
+      "edge": false
+    },
+    {
+      "shortId": "397",
+      "label": "Servidor Hiperconvergente",
+      "edge": false
+    },
+    {
+      "shortId": "398",
+      "label": "Data Center",
+      "edge": false
+    },
+    {
+      "shortId": "399",
+      "label": "Compliance (Contratos, Jurídico, Qualidade)",
+      "edge": false
+    },
+    {
+      "shortId": "400",
+      "label": "Financeiro (Reembolso, Viagem, Crédito)",
+      "edge": false
+    },
+    {
+      "shortId": "401",
+      "label": "Pré-Vendas (Design, Licitação)",
+      "edge": false
+    },
+    {
+      "shortId": "402",
+      "label": "Suprimentos (Compras, Estoque)",
+      "edge": false
+    },
+    {
+      "shortId": "403",
+      "label": "Inovação (Automação, Parcerias)",
+      "edge": false
+    },
+    {
+      "shortId": "404",
+      "label": "RH (Capacitação, Recrutamento)",
+      "edge": false
+    },
+    {
+      "shortId": "405",
+      "label": "Switch (Configurar, Falha/Erro)",
+      "edge": false
+    },
+    {
+      "shortId": "406",
+      "label": "TOPdesk (Config, Falha, Melhoria)",
+      "edge": false
+    },
+    {
+      "shortId": "407",
+      "label": "Escritório de Projetos (POC, Contrato)",
+      "edge": false
+    },
+    {
+      "shortId": "408",
+      "label": "Outras Áreas",
+      "edge": false
+    },
+    {
+      "shortId": "409",
+      "label": "Contato telefônico",
+      "edge": false
+    },
+    {
+      "shortId": "410",
+      "label": "Criação de usuário",
+      "edge": false
+    },
+    {
+      "shortId": "411",
+      "label": "Criação/Alteração de POP",
+      "edge": false
+    },
+    {
+      "shortId": "412",
+      "label": "Elaboração de relatório",
+      "edge": false
+    },
+    {
+      "shortId": "413",
+      "label": "Instalação de Aplicativos",
+      "edge": false
+    },
+    {
+      "shortId": "414",
+      "label": "Orientações",
+      "edge": false
+    },
+    {
+      "shortId": "415",
+      "label": "Reset de senha",
+      "edge": false
+    },
+    {
+      "shortId": "416",
+      "label": "Central de Serviços",
+      "edge": false
+    },
+    {
+      "shortId": "418",
+      "label": "P R E E N C H I M E N T O",
+      "edge": false
+    },
+    {
+      "shortId": "419",
+      "label": "Ponto de teleporte",
+      "edge": false
+    },
+    {
+      "shortId": "420",
+      "label": "Ponto de teleporte",
+      "edge": false
+    },
+    {
+      "shortId": "421",
+      "label": "ATENDIMENTO",
+      "edge": false
+    },
+    {
+      "shortId": "422",
+      "label": "INÍCIO",
+      "edge": false
+    },
+    {
+      "shortId": "423",
+      "label": "FIM",
+      "edge": false
+    },
+    {
+      "shortId": "424",
+      "label": "FIM",
+      "edge": false
+    },
+    {
+      "shortId": "273",
+      "label": "Processamento",
+      "edge": false
+    }
+  ]
+}
