@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ReactFlowProvider } from '@xyflow/react';
 import { AnimatePresence, MotionConfig, motion } from 'motion/react';
-import { ArrowLeft, ArrowRight, Compass, Search, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Compass, House, Search, X } from 'lucide-react';
 import { flow, issues, references } from '../data/flows/atendimento-topdesk';
 import { FlowCanvas } from '../features/flow/FlowCanvas';
 import { DetailPanel } from '../features/flow/DetailPanel';
@@ -74,7 +74,7 @@ export function App() {
   }, [surface, state.journey.edges.length]);
   return <MotionConfig reducedMotion="user"><main className={`experience ${overview ? 'overview-mode' : ''} ${assistance ? 'doubts-open' : ''}`}>
     <div className="ambient-light" aria-hidden="true" />
-    <header className="identity"><a href="./" aria-label="APTUM FLOW">aptum<span>/</span><strong>flow</strong><i /></a></header>
+    <header className="identity"><a className="home-link" href="./" aria-label="Ir para o início" title="Início"><House size={19} /></a><span className="brand-divider" aria-hidden="true">/</span><span className="aptum-wordmark" aria-label="APTUM"><span>A</span><span>P</span><span>T</span><span>U</span><span>M</span></span></header>
     <button ref={exploreRef} className={`explore-trigger ${surface ? 'is-open' : ''}`} onClick={() => { setSurface(surface ? null : 'menu'); setDetails(false); }} aria-expanded={Boolean(surface)} aria-controls="explore-surface"><Compass size={16} />Explorar</button>
     <div className="spatial-canvas"><ReactFlowProvider><FlowCanvas transition={transition} helpOpen={assistance} state={state} overview={overview} view={view} tools={tools} cameraToken={cameraToken} onInspect={selectCanvas} onFollow={move} onDetails={() => { setDetails(true); setSurface(null); setAssistance(false); }} onExplain={() => { setAssistance(true); setDetails(false); setSurface(null); }} /></ReactFlowProvider></div>
     {overview && <div className="overview-caption"><span>O PROCESSO INTEIRO</span><h2>Uma arquitetura de decisões.</h2><p>Selecione uma etapa para aproximar. Seu percurso permanece onde você o deixou.</p><div className="overview-tabs">{([['complete', 'Completo'], ['service', 'Atendimento'], ['registration', 'Registro']] as const).map(([id, title]) => <button key={id} aria-pressed={view === id} onClick={() => setView(id)}>{title}</button>)}</div></div>}
