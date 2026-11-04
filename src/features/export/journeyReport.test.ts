@@ -45,12 +45,12 @@ describe('Percurso de ocorrências e relatório', () => {
     expect(Object.keys(stepDocumentation)).toHaveLength(flow.nodes.length);
     for (const doc of Object.values(stepDocumentation)) for (const value of Object.values(doc)) expect(value.length).toBeGreaterThan(20);
   });
-  it('exporta percurso longo em páginas vetoriais com histórico completo', () => {
+  it('exporta somente resumo e páginas do diagrama vetorial', () => {
     const state = longJourney(20), report = journeyReport(flow, state.journey);
     expect(report.entries.length).toBe(state.journey.nodes.length);
     expect(report.decisions).toBeGreaterThan(20);
-    const pdf = createJourneyPdf(flow, state.journey, { collaborator: 'João', exercise: 'Teste', notes: 'Observação longa. '.repeat(150) }, 'teste-id');
-    expect(pdf.getNumberOfPages()).toBeGreaterThan(10);
+    const pdf = createJourneyPdf(flow, state.journey, { collaborator: 'João', ticket: 'CH-123' }, 'teste-id');
+    expect(pdf.getNumberOfPages()).toBe(1 + Math.ceil(report.entries.length / 6));
     expect(pdf.output()).toContain('%PDF-');
     expect(pdf.output()).toContain('teste-id');
     expect(reportFilename(new Date(2026, 3, 22, 9, 5))).toBe('APTUM_FLOW_Percurso_2026-04-22_09-05.pdf');

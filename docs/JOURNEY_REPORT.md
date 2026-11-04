@@ -8,9 +8,9 @@ Voltar remove uma visita e sua transicao, preserva descobertas e reabre as alter
 
 `documentation.ts` contem descricao, objetivo, contexto e orientacao das 42 etapas/referencias. Esses textos sao interpretacoes didaticas persistidas, nao procedimentos oficiais. Critérios, SLA, autorizacoes e hierarquias ausentes nao foram inventados.
 
-O terminal ativo habilita Exportar PDF, Revisar percurso e Iniciar novamente. Identificacao e observacoes sao opcionais. O gerador valida entrada, alinhamento de cada transicao e terminal antes de criar o documento. A biblioteca jsPDF e carregada sob demanda; nao ha captura raster do canvas ou envio ao servidor.
+O terminal ativo habilita Exportar PDF, Revisar percurso e Iniciar novamente. Colaborador e chamado sao identificacoes opcionais. O gerador valida entrada, alinhamento de cada transicao e terminal antes de criar o documento. A biblioteca jsPDF e carregada sob demanda; nao ha captura raster do canvas ou envio ao servidor.
 
-O PDF A4 inclui cabecalho, horario local, UUID do percurso, resumo, seis cards vetoriais por pagina de serpentina, escolhas, conexoes interpretadas, marcadores de continuidade, historico textual automaticamente paginado e espaco do avaliador. Observacoes longas tambem paginam. O nome segue `APTUM_FLOW_Percurso_YYYY-MM-DD_HH-mm.pdf`. Um link nativo de download recebe um Blob PDF; o navegador controla o destino final.
+O PDF A4 possui somente dois blocos: identificacao/resumo compacto e diagrama visual. O diagrama usa seis cards vetoriais por pagina de serpentina, com escolhas, conexoes interpretadas e marcadores de continuidade. Nao inclui historico textual, observacoes ou area do avaliador depois do diagrama. O nome segue `APTUM_FLOW_Percurso_YYYY-MM-DD_HH-mm.pdf`. Um link nativo de download recebe um Blob PDF; o navegador controla o destino final.
 
 Validacao: 21 testes cobrem integridade, ciclos, bifurcacoes, retorno, cobertura documental e PDF com mais de dez paginas. Build TypeScript/Vite aprovado. Canvas inspecionado em viewports 1920, 1536 e 390px, sem overflow horizontal do documento. Isso nao equivale a um teste fisico de escala Windows 125%.
 
