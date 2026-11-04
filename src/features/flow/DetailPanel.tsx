@@ -17,6 +17,5 @@ export function DetailPanel({ step, onClose }: { step: FlowStep; onClose: () => 
     {step.description && <p>{step.description}</p>}
     {step.fields && <><p>{step.type === 'reference' ? 'Valores presentes no diagrama original.' : 'Informações deste preenchimento.'}</p><ul className="field-list">{step.fields.map(field => <li key={field}>{field}</li>)}</ul></>}
     {step.note && <details className="disclosure"><summary>Nota sobre a interpretação</summary><p>{step.note}</p></details>}
-    <details className="disclosure"><summary>Fonte e documentação</summary><p>TOPdesk · elementos {step.sourceIds.join(', ')}.</p><p>Documentação complementar ainda não cadastrada. Responsáveis, critérios e exemplos não foram inferidos.</p></details>
   </motion.aside>;
 }

@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest';
 import { flow } from '../data/flows/atendimento-topdesk';
 import { createExploration, follow, inspect, retreat } from '../features/flow/exploration';
-import { answerForStep, faqSources, questionsForStep, relevantFAQSteps, stepFAQs } from '../data/flows/atendimento-topdesk/faq';
+import { answerForStep, faqSources, formatFAQAnswer, questionsForStep, relevantFAQSteps, stepFAQs } from '../data/flows/atendimento-topdesk/faq';
 import { journeyPosition, pdfJourneyLayout, webJourneyLayout } from '../features/flow/journeyLayout';
 
 it('volta da decisão escolhida e segue alternativa sem manter o caminho desfeito', () => {
@@ -44,4 +44,15 @@ it('mantém o PDF compacto e independente do espaço negativo web', () => {
   expect(journeyPosition(3, 3, pdfJourneyLayout)).toEqual({ x: 124, y: 103, row: 1, column: 2 });
   expect(journeyPosition(1).x).toBe(800);
   expect(journeyPosition(3).y).toBe(780);
+});
+it('formata respostas prontas em resumo e blocos sem perder o conteúdo', () => {
+  for (const faq of stepFAQs) {
+    const formatted = formatFAQAnswer(faq.answer);
+    expect(formatted.summary.length).toBeGreaterThan(8);
+    expect(formatted.sections.map(section => section.content).join(' ')).not.toMatch(/No fluxo:|Boa prática:|Informação não definida:/);
+    expect(formatted.sections.every(section => section.title.length > 10)).toBe(true);
+  }
+  const mixed = formatFAQAnswer(answerForStep('224', '224-faq-2')!.answer);
+  expect(mixed.sections.map(section => section.kind)).toEqual(['practice']);
+  expect(formatFAQAnswer(answerForStep('309', '309-faq-2')!.answer).sections.map(section => section.kind)).toEqual(['practice']);
 });

@@ -5,6 +5,38 @@ export interface StepFAQ {
   sourceType: 'operational-flow' | 'itil-guidance' | 'mixed';
   sourceRefs: string[]; category?: string; documentationRefs?: string[];
 }
+export interface FAQAnswerSection { kind: 'flow' | 'practice' | 'limit'; title: string; content: string }
+const answerMarkers = [
+  { marker: 'No fluxo:', kind: 'flow', title: 'O que acontece no fluxo' },
+  { marker: 'Boa prática:', kind: 'practice', title: 'Como agir com qualidade' },
+  { marker: 'Informação não definida:', kind: 'limit', title: 'O que precisa ser confirmado' },
+] as const;
+export function formatFAQAnswer(answer: string) {
+  const markerPattern = /(No fluxo:|Boa prática:|Informação não definida:)/g;
+  const matches = [...answer.matchAll(markerPattern)];
+  const sections: FAQAnswerSection[] = [];
+  if (!matches.length) return { summary: answer, sections };
+  for (let index = 0; index < matches.length; index++) {
+    const match = matches[index], definition = answerMarkers.find(item => item.marker === match[0])!;
+    const start = (match.index ?? 0) + match[0].length;
+    const end = matches[index + 1]?.index ?? answer.length;
+    const content = answer.slice(start, end).trim();
+    if (content) sections.push({ kind: definition.kind, title: definition.title, content });
+  }
+  const first = sections[0]?.content ?? answer;
+  const sentences = first.match(/[^.!?]+[.!?]+|[^.!?]+$/g)?.map(sentence => sentence.trim()) ?? [first];
+  let summary = '';
+  for (const sentence of sentences) {
+    summary = `${summary} ${sentence}`.trim();
+    if (summary.length >= 36) break;
+  }
+  summary = summary.charAt(0).toUpperCase() + summary.slice(1);
+  const firstSection = sections[0];
+  const consumed = sentences.slice(0, sentences.findIndex((_, index) => sentences.slice(0, index + 1).join(' ').length >= 36) + 1).join(' ').length;
+  const remainder = first.slice(consumed).trim();
+  const complementarySections = sections.flatMap((section, index) => index === 0 ? remainder ? [{ ...section, content: remainder.charAt(0).toUpperCase() + remainder.slice(1) }] : [] : [{ ...section, content: section.content.charAt(0).toUpperCase() + section.content.slice(1) }]);
+  return { summary, sections: firstSection ? complementarySections : sections };
+}
 export const faqSources = {
   flow: { title: 'Fluxograma Aptum e mapeamento de fidelidade', url: 'docs/FLOW_MAPPING.md' },
   incident: { title: 'Atlassian: gerenciamento de incidentes (fonte secundária de ITSM)', url: 'https://www.atlassian.com/itsm/incident-management' },

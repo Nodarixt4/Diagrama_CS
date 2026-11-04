@@ -50,10 +50,20 @@ function ProcessNode({ data, id }: NodeProps<SpatialNode>) {
 }
 function RevealedEdge(props: EdgeProps<SpatialEdge>) {
   const [path, x, y] = getBezierPath(props);
+  const retracting = Boolean(props.data?.retracting);
+  const edgeDuration = transitionTiming.edge / 1000;
   return <g className={`spatial-edge ${props.data?.fresh ? 'fresh' : ''} ${props.data?.retracting ? 'retracting' : ''} ${props.data?.quiet ? 'quiet' : ''} ${props.data?.inferred ? 'inferred' : ''}`}>
     <BaseEdge path={path} style={{ stroke: 'transparent' }} interactionWidth={0} />
-    <motion.path key={props.data?.retracting ? `retract-${props.data.serial}` : props.data?.fresh ? `reveal-${props.data.serial}` : 'settled'} d={path} initial={props.data?.fresh && !props.data.reduced ? { pathLength: 0, opacity: 0 } : false} animate={{ pathLength: props.data?.retracting ? 0 : 1, opacity: props.data?.retracting ? 0 : props.data?.quiet ? .35 : .7 }} transition={{ duration: props.data?.reduced ? 0 : transitionTiming.edge / 1000, delay: props.data?.retracting && !props.data.reduced ? (transitionTiming.total - transitionTiming.edge) / 1000 : 0, ease: props.data?.retracting ? reverseEase : forwardEase }} className="revealed-line" fill="none" markerEnd={props.markerEnd} />
-    {props.label && <EdgeLabelRenderer><motion.div className="edge-word" animate={{ opacity: props.data?.retracting ? 0 : 1 }} transition={{ duration: props.data?.reduced ? 0 : transitionTiming.edge / 1000 }} style={{ transform: `translate(-50%, -50%) translate(${x}px,${y}px)` }}>{props.label}</motion.div></EdgeLabelRenderer>}
+    <motion.path key={retracting ? `retract-${props.data?.serial}` : props.data?.fresh ? `reveal-${props.data.serial}` : 'settled'} d={path}
+      initial={!props.data?.reduced && retracting ? { pathLength: 1, opacity: .7 } : props.data?.fresh && !props.data.reduced ? { pathLength: 0, opacity: 0 } : false}
+      animate={{ pathLength: retracting ? 0 : 1, opacity: retracting ? .15 : props.data?.quiet ? .35 : .7 }}
+      transition={{ duration: props.data?.reduced ? 0 : edgeDuration, ease: retracting ? reverseEase : forwardEase }}
+      className="revealed-line" fill="none" markerEnd={retracting ? undefined : props.markerEnd} />
+    {retracting && !props.data?.reduced && <g className="reverse-arrow" aria-hidden="true">
+      <path d="M 0 0 L -10 -5 L -7 0 L -10 5 Z" />
+      <animateMotion dur={`${edgeDuration}s`} path={path} keyPoints="1;0" keyTimes="0;1" calcMode="spline" keySplines=".64 0 .78 0" rotate="auto-reverse" fill="freeze" />
+    </g>}
+    {props.label && <EdgeLabelRenderer><motion.div className="edge-word" initial={retracting ? { opacity: 1 } : false} animate={{ opacity: retracting ? 0 : 1 }} transition={{ duration: props.data?.reduced ? 0 : edgeDuration }} style={{ transform: `translate(-50%, -50%) translate(${x}px,${y}px)` }}>{props.label}</motion.div></EdgeLabelRenderer>}
   </g>;
 }
 const nodeTypes = { spatial: ProcessNode };

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { X } from 'lucide-react';
-import { answerForStep, faqSources, questionsForStep } from '../../data/flows/atendimento-topdesk/faq';
+import { answerForStep, faqSources, formatFAQAnswer, questionsForStep } from '../../data/flows/atendimento-topdesk/faq';
 import type { StepFAQ } from '../../data/flows/atendimento-topdesk/faq';
 import type { FlowStep } from '../flow/types';
 
@@ -30,9 +30,20 @@ export function DoubtsPanel({ step, onClose }: { step: FlowStep; onClose: () => 
       {!messages.length && <p className="conversation-empty">Selecione uma dúvida abaixo.</p>}
       {messages.map(({ faq, answered }) => <div className="conversation-turn" key={faq.id}>
         <div className="chat-question"><span>Você</span><p>{faq.question}</p></div>
-        {answered ? <motion.div className="chat-answer" initial={{ opacity: 0, y: reduced ? 0 : 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .2 }}><span>Orientação contextual</span><p>{faq.answer}</p><details className="faq-source"><summary>Base desta resposta</summary>{faq.sourceRefs.map(ref => { const source = faqSources[ref as keyof typeof faqSources]; return <p key={ref}>{source.url.startsWith('https:') ? <a href={source.url} target="_blank" rel="noreferrer">{source.title}</a> : source.title}</p>; })}</details></motion.div> : <div className="chat-pending" role="status">Preparando resposta<span aria-hidden="true">…</span></div>}
+        {answered ? <FAQAnswer faq={faq} reduced={Boolean(reduced)} /> : <div className="chat-pending" role="status"><span className="answer-pulse" aria-hidden="true" />Organizando a orientação…</div>}
       </div>)}<div ref={end} />
     </div>
     <div className="faq-suggestions" aria-label="Perguntas disponíveis">{questions.filter(faq => !messages.some(m => m.faq.id === faq.id)).map(faq => <button disabled={pending} key={faq.id} onClick={() => ask(faq.id)}>{faq.question}</button>)}{!questions.length && <p>Este marcador não possui dúvidas cadastradas. Consulte os detalhes da etapa.</p>}{questions.length > 0 && messages.length === questions.length && <p>Você consultou todas as dúvidas desta etapa.</p>}</div>
   </motion.aside>;
+}
+
+function FAQAnswer({ faq, reduced }: { faq: StepFAQ; reduced: boolean }) {
+  const formatted = formatFAQAnswer(faq.answer);
+  const sourceLabel = faq.sourceType === 'operational-flow' ? 'Fluxo operacional' : faq.sourceType === 'itil-guidance' ? 'Boa prática de serviços' : 'Fluxo + boa prática';
+  return <motion.div className="chat-answer" initial={{ opacity: 0, y: reduced ? 0 : 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .2 }}>
+    <div className="answer-heading"><span>Orientação contextual</span><small>{sourceLabel}</small></div>
+    <div className="answer-direct"><span>Resposta direta</span><p className="answer-summary">{formatted.summary}</p></div>
+    <div className="answer-sections">{formatted.sections.map(section => <section className={`answer-section answer-${section.kind}`} key={`${section.kind}-${section.title}`}><span className="answer-section-mark" aria-hidden="true" /><div><h3>{section.title}</h3><p>{section.content}</p></div></section>)}</div>
+    <details className="faq-source"><summary>Referências consultadas</summary>{faq.sourceRefs.map(ref => { const source = faqSources[ref as keyof typeof faqSources]; return <p key={ref}>{source.url.startsWith('https:') ? <a href={source.url} target="_blank" rel="noreferrer">{source.title}</a> : source.title}</p>; })}</details>
+  </motion.div>;
 }
